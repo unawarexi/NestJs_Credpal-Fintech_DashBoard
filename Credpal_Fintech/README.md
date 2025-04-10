@@ -18,9 +18,9 @@ Ensure you have the following installed:
 
 2. Install dependencies:
    ```bash
-   npm install
+   npm install --legacy-peer-deps
    # or
-   yarn install
+   yarn install --legacy-peer-deps
    ```
 
 3. Create a `.env` file in the root directory and configure the environment variables as needed. Below is an example:
