@@ -6,6 +6,46 @@ import { UserDto } from './dto/user.dto';
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
+  async getAllUsersWithDetails() {
+    console.log('Service: Fetching all users with details');
+    try {
+      const users = await this.prisma.user.findMany({
+        include: {
+          wallet: true,
+          transactionsSent: true,
+          transactionsReceived: true,
+        },
+      });
+      console.log('Service: Returning users with details:', users);
+      return users;
+    } catch (error) {
+      console.error('Error fetching all users with details:', error);
+      throw error;
+    }
+  }
+
+  async getUserByIdWithDetails(id: string) {
+    console.log(`Service: Fetching user with ID: ${id} with details`);
+    try {
+      const user = await this.prisma.user.findUnique({
+        where: { id },
+        include: {
+          wallet: true,
+          transactionsSent: true,
+          transactionsReceived: true,
+        },
+      });
+      console.log('Service: Returning user with details:', user);
+      if (!user) {
+        throw new Error(`User with ID ${id} not found`);
+      }
+      return user;
+    } catch (error) {
+      console.error(`Error fetching user with ID ${id} with details:`, error);
+      throw error;
+    }
+  }
+
   async getAllUsers() {
     console.log('Service: Fetching all users');
     try {
@@ -32,18 +72,6 @@ export class UserService {
       throw error;
     }
   }
-
-  //   async createUser(userDto: UserDto) {
-  //     console.log('Service: Creating a new user with data:', userDto);
-  //     try {
-  //       const user = await this.prisma.user.create({ data: userDto });
-  //       console.log('Service: Returning created user:', user);
-  //       return user;
-  //     } catch (error) {
-  //       console.error('Error creating user:', error);
-  //       throw error;
-  //     }
-  //   }
 
   async updateAllUsers(updateData: any) {
     console.log('Service: Updating all users with data:', updateData);

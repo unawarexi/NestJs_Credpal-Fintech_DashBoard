@@ -8,12 +8,12 @@ export class UserController {
 
   @Get()
   async getAllUsers() {
-    return this.userService.getAllUsers();
+    return this.userService.getAllUsersWithDetails();
   }
 
   @Get(':id')
   async getUserById(@Param('id') id: string) {
-    return this.userService.getUserById(id);
+    return this.userService.getUserByIdWithDetails(id);
   }
 
   //   @Post()
