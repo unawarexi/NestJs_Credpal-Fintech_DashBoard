@@ -10,7 +10,7 @@ const WalletRightContainer = ({ children }: WalletRightContainerProps) => {
   return (
     <div className="h-screen flex flex-col">
       <WalletHeader />
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto text-sm md:text-base"> 
         {children}
       </main>
       <WalletFooter />

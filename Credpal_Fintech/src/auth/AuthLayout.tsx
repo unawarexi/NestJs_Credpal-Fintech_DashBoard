@@ -9,7 +9,7 @@ function AuthLayout() {
     <div className={`md:flex ${isMobile ? 'relative' : ''}`}>
       <div
         className={`md:w-[25%] w-full ${
-          isMobile ? 'absolute top-0 left-0 z-10' : ''
+          isMobile ? 'absolute top-0 left-0' : ''
         }`}
       >
         <LeftContainer />
@@ -17,7 +17,7 @@ function AuthLayout() {
 
       <div
         className={`md:w-3/5 w-[80%] ${
-          isMobile ? 'relative mt-[200px] z-50' : ''
+          isMobile ? 'relative z-50' : ''
         }`}
       >
         <main>

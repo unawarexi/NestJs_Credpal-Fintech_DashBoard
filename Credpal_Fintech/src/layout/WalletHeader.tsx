@@ -14,7 +14,7 @@ const WalletHeader = () => {
         <input
           type="text"
           placeholder="Search..."
-          className="w-full bg-gray-300 rounded-full py-2.5 px-10 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
+          className="w-full bg-gray-300 rounded-full py-2.5 px-10 text-xs md:text-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
         />
         <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
       </div>
@@ -25,7 +25,7 @@ const WalletHeader = () => {
           whileHover={{ scale: 1.1 }}
         >
           <Bell size={20} className="text-gray-500" />
-          <span className="absolute -top-1 -right-1 bg-red-500 rounded-full w-4 h-4 flex items-center justify-center text-white text-xs">1</span>
+          <span className="absolute -top-1 -right-1 bg-red-500 rounded-full w-4 h-4 flex items-center justify-center text-white text-[10px] md:text-xs">1</span>
         </motion.div>
         
         <div className="flex items-center gap-2">
@@ -33,7 +33,7 @@ const WalletHeader = () => {
             M
           </div>
           <div>
-            <span className="text-sm font-medium">Magnartis LTD</span>
+            <span className="text-xs md:text-sm font-medium">Magnartis LTD</span>
             <motion.span
               className="inline-block ml-1"
               animate={{ rotateZ: [0, 180, 0] }}

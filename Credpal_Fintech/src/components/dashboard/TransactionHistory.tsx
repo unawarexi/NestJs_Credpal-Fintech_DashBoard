@@ -76,7 +76,7 @@ const TransactionHistory = () => {
       animate="visible"
     >
       <div className="p-6 border-b border-gray-200">
-        <h2 className="text-lg font-bold mb-6">Transaction History</h2>
+        <h2 className="text-lg md:text-xl font-bold mb-6">Transaction History</h2>
         
         <div className="flex justify-between items-center">
           <div className="flex space-x-2">
@@ -136,10 +136,10 @@ const TransactionHistory = () => {
                   >
                     <div className="py-1">
                       <div className="px-4 py-2 text-sm text-gray-700 font-medium border-b border-gray-100">Sort by</div>
-                      <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Date (Newest first)</button>
-                      <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Date (Oldest first)</button>
-                      <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Amount (High to low)</button>
-                      <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Amount (Low to high)</button>
+                      <button className="px-4 py-2 rounded-lg text-[10px] md:text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Date (Newest first)</button>
+                      <button className="px-4 py-2 rounded-lg text-[10px] md:text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Date (Oldest first)</button>
+                      <button className="px-4 py-2 rounded-lg text-[10px] md:text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Amount (High to low)</button>
+                      <button className="px-4 py-2 rounded-lg text-[10px] md:text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Amount (Low to high)</button>
                     </div>
                   </motion.div>
                 )}
@@ -170,18 +170,18 @@ const TransactionHistory = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05, duration: 0.3 }}
               >
-                <td className="px-6 py-4 text-sm text-gray-700">{transaction.id}</td>
-                <td className="px-6 py-4 text-sm text-gray-700">{transaction.type}</td>
-                <td className="px-6 py-4 text-sm text-gray-700">{transaction.amount}</td>
+                <td className="px-6 py-4 text-[10px] md:text-sm text-gray-700">{transaction.id}</td>
+                <td className="px-6 py-4 text-[10px] md:text-sm text-gray-700">{transaction.type}</td>
+                <td className="px-6 py-4 text-[10px] md:text-sm text-gray-700">{transaction.amount}</td>
                 <td className="px-6 py-4 text-sm">
                   <div className="flex items-center">
                     <div className={`w-2 h-2 rounded-full mr-2 ${getStatusDot(transaction.status)}`}></div>
-                    <span className={`px-2 py-1 rounded-full text-xs ${getStatusColor(transaction.status)}`}>
+                    <span className={`px-2 py-1 rounded-full text-[10px] md:text-xs ${getStatusColor(transaction.status)}`}>
                       {transaction.status}
                     </span>
                   </div>
                 </td>
-                <td className="px-6 py-4 text-sm text-gray-700">{transaction.date}</td>
+                <td className="px-6 py-4 text-[10px] md:text-sm text-gray-700">{transaction.date}</td>
                 <td className="px-6 py-4 text-sm">
                   <motion.button
                     className="text-blue-600 hover:text-blue-800"
@@ -198,7 +198,7 @@ const TransactionHistory = () => {
       </div>
       
       <div className="flex justify-between items-center px-6 py-4">
-        <div className="text-sm text-gray-700">
+        <div className="text-[10px] md:text-sm text-gray-700">
           Page {currentPage} of {totalPages}
         </div>
         

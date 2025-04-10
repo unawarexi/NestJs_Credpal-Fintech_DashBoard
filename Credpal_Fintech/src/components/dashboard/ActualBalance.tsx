@@ -38,7 +38,7 @@ const ActualBalance = () => {
       >
         <div className='bg-zinc-100 p-4 rounded-lg'>
           <div className="flex bg-zinc-0 justify-between items-center mb-6 border-b border-gray-400 py-4 ">
-            <h3 className="text-gray-500 font-medium">Actual Balance</h3>
+            <h3 className="text-gray-500 font-medium text-xs md:text-sm">Actual Balance</h3>
             <motion.div 
               className="bg-gray-200 p-2 rounded-lg"
               whileHover={{ scale: 1.05 }}
@@ -57,7 +57,7 @@ const ActualBalance = () => {
           </motion.div>
           
           <div className="flex items-center mb-6 border-b border-gray-400 py-4">
-            <div className="text-gray-700 mr-2">Wema Bank 010 210 2020</div>
+            <div className="text-gray-700 mr-2 text-xs md:text-sm">Wema Bank 010 210 2020</div>
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -69,7 +69,7 @@ const ActualBalance = () => {
           
           <div className=" border-dashed border-gray-300  ">
             <div className="flex justify-between items-center mb-10 border-b border-gray-300 py-4">
-              <h3 className="text-gray-500 font-medium">Pending Amount</h3>
+              <h3 className="text-gray-500 font-medium text-xs md:text-sm">Pending Amount</h3>
               <motion.div 
                 className="bg-gray-200 p-2 rounded-lg"
                 whileHover={{ scale: 1.05 }}

@@ -13,6 +13,7 @@ import {
   LogOut, 
   HelpCircle 
 } from 'lucide-react';
+import Transactions from '../layout/Transactions'; // Import the new Transactions screen
 
 const WalletLeftContainer = () => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const WalletLeftContainer = () => {
 
   return (
     <motion.div 
-      className="w-2/5 bg-[#0C110D] text-white h-screen max-w-xs flex flex-col justify-between"
+      className="md:w-2/5 w-full bg-[#0C110D] text-white h-screen max-w-xs flex flex-col justify-between"
       initial={{ x: -50, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -50,13 +51,13 @@ const WalletLeftContainer = () => {
       <div>
         <div className="p-6 flex items-center gap-2">
           <div className="bg-yellow-500 rounded-full h-8 w-8 flex items-center justify-center">
-            <span className="font-bold">B</span>
+            <span className="font-bold text-xs md:text-base">B</span> {/* Adjust text size */}
           </div>
-          <span className="font-bold">BEAM</span>
+          <span className="font-bold text-xs md:text-base">BEAM</span> {/* Adjust text size */}
         </div>
 
         <div className="mt-8">
-          <div className="px-6 py-2 text-gray-400 text-sm">MAIN</div>
+          <div className="px-6 py-2 text-gray-400 text-xs md:text-sm">MAIN</div> {/* Adjust text size */}
           <div className="space-y-1">
             {mainMenuItems.map((item, index) => (
               <motion.div 
@@ -67,14 +68,14 @@ const WalletLeftContainer = () => {
                 onClick={() => handleNavigation(item.route)}
               >
                 <span className={`${location.pathname === item.route ? 'text-yellow-500' : 'text-gray-400'}`}>{item.icon}</span>
-                <span className={`${location.pathname === item.route ? 'text-yellow-500' : 'text-gray-400'}`}>{item.text}</span>
+                <span className={`${location.pathname === item.route ? 'text-yellow-500' : 'text-gray-400'} text-xs md:text-sm`}>{item.text}</span> {/* Adjust text size */}
               </motion.div>
             ))}
           </div>
         </div>
 
         <div className="mt-8">
-          <div className="px-6 py-2 text-gray-400 text-sm">OTHERS</div>
+          <div className="px-6 py-2 text-gray-400 text-xs md:text-sm">OTHERS</div> {/* Adjust text size */}
           <div className="space-y-1">
             {otherMenuItems.map((item, index) => (
               <motion.div 
@@ -94,7 +95,7 @@ const WalletLeftContainer = () => {
       
       <div className="p-6">
         <div className="bg-gray-50 p-3 rounded-lg flex items-center justify-between">
-          <span className="text-sm text-black">Switch to dark mode</span>
+          <span className="text-sm md:text-base text-black">Switch to dark mode</span> {/* Adjust text size */}
           <div 
             className={`w-12 h-6 rounded-full p-1 cursor-pointer ${darkMode ? 'bg-yellow-500' : 'bg-gray-600'}`}
             onClick={() => setDarkMode(!darkMode)}
@@ -107,6 +108,7 @@ const WalletLeftContainer = () => {
           </div>
         </div>
       </div>
+      {location.pathname === '/transactions' && <Transactions />} {/* Render Transactions screen */}
     </motion.div>
   );
 };

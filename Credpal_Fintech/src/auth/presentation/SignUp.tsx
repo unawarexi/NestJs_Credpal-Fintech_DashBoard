@@ -12,6 +12,8 @@ const SignUp: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const isMobile = window.innerWidth <= 768;
+
   const formik = useFormik({
     initialValues: {
       fullName: '',
@@ -47,14 +49,20 @@ const SignUp: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
   return (
     <>
       {isSubmitting && <SubmitSpinner />}
-      <div className="flex flex-col md:flex-row lg:min-h-screen h-[100vh] bg-white">
+      <div 
+        className={`flex flex-col md:flex-row lg:min-h-screen h-[100vh] ${
+          isMobile ? 'bg-white/30 backdrop-blur-md rounded-lg shadow-lg p-6' : 'bg-white'
+        }`}
+      >
         {/* Left side */}
         {/* <LeftContainer /> */}
         
         {/* Right side - Sign Up Form */}
         <motion.div 
-          className="w-full md:w-3/5 p-4 md:p-8 lg:p-16 flex flex-col justify-center"
-          initial={{ opacity: 0, x: 50 }}
+          className={`w-full md:w-3/5 py-10 md:py-0 md:p-8 lg:p-16 flex flex-col justify-center ${
+            isMobile ? '' : ''
+          }`}
+          initial={isMobile ? { opacity: 0, x: -50 } : { opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
@@ -64,21 +72,46 @@ const SignUp: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
             animate={{ y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2">Create an account</h1>
-            <p className="mb-4 md:mb-6 lg:mb-8 text-xs md:text-sm lg:text-gray-600">
-              Already have an account? <span onClick={toggleView} className="text-blue-600 hover:underline cursor-pointer">Login</span>
+            <h1 
+              className={`text-xl md:text-2xl lg:text-3xl font-bold mb-2 ${
+                isMobile ? 'text-amber-500' : 'text-gray-900'
+              }`}
+            >
+              Create an account
+            </h1>
+            <p 
+              className={`mb-4 md:mb-6 lg:mb-8 text-xs md:text-sm ${
+                isMobile ? 'text-white' : 'text-gray-600'
+              }`}
+            >
+              Already have an account?{' '}
+              <span 
+                onClick={toggleView} 
+                className={`cursor-pointer ${
+                  isMobile ? 'text-amber-400 hover:underline' : 'text-blue-600 hover:underline'
+                }`}
+              >
+                Login
+              </span>
             </p>
             
             <form onSubmit={formik.handleSubmit}>
               {/* Full name field */}
               <div className="mb-4 md:mb-6">
-                <label htmlFor="fullName" className="block mb-1 md:mb-2 text-xs md:text-sm text-gray-700">Full name</label>
+                <label 
+                  htmlFor="fullName" 
+                  className={`block mb-1 md:mb-2 text-xs md:text-sm ${
+                    isMobile ? 'text-white' : 'text-gray-700'
+                  }`}
+                >
+                  Full name
+                </label>
                 <input
                   type="text"
                   id="fullName"
                   name="fullName"
                   className={`w-full px-2 py-2 md:px-4 md:py-3 border ${formik.touched.fullName && formik.errors.fullName ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                  placeholder="Enter full name"
+                  placeholder={isMobile ? "Full Name" : "Enter full name"}
                   value={formik.values.fullName}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -90,13 +123,20 @@ const SignUp: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
               
               {/* Email field */}
               <div className="mb-4 md:mb-6">
-                <label htmlFor="email" className="block mb-1 md:mb-2 text-xs md:text-sm text-gray-700">Email Address</label>
+                <label 
+                  htmlFor="email" 
+                  className={`block mb-1 md:mb-2 text-xs md:text-sm ${
+                    isMobile ? 'text-white' : 'text-gray-700'
+                  }`}
+                >
+                  Email Address
+                </label>
                 <input
                   type="email"
                   id="email"
                   name="email"
                   className={`w-full px-2 py-2 md:px-4 md:py-3 border ${formik.touched.email && formik.errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                  placeholder="margnantissstockbroker@"
+                  placeholder={isMobile ? "Email" : "margnantissstockbroker@"}
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -108,13 +148,21 @@ const SignUp: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
               
               {/* Password field */}
               <div className="mb-4 md:mb-6">
-                <label htmlFor="password" className="block mb-1 md:mb-2 text-xs md:text-sm text-gray-700">Password</label>
+                <label 
+                  htmlFor="password" 
+                  className={`block mb-1 md:mb-2 text-xs md:text-sm ${
+                    isMobile ? 'text-white' : 'text-gray-700'
+                  }`}
+                >
+                  Password
+                </label>
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"
                     className={`w-full px-2 py-2 md:px-4 md:py-3 border ${formik.touched.password && formik.errors.password ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                    placeholder={isMobile ? "Password" : ""}
                     value={formik.values.password}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -135,7 +183,9 @@ const SignUp: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
               
               {/* Terms checkbox */}
               <div className="mb-6">
-                <label className="flex items-center">
+                <label className={`flex items-center ${
+                  isMobile ? 'text-white' : 'text-gray-700'
+                }`}>
                   <input
                     type="checkbox"
                     name="agreeToTerms"
@@ -144,8 +194,25 @@ const SignUp: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <span className="text-xs md:text-sm">
-                    I agree to BeamMarkets <a href="#" className="text-blue-600 hover:underline">Terms of Service</a> and <a href="#" className="text-blue-600 hover:underline">Privacy Policy</a>
+                  <span className="text-[10px] md:text-sm">
+                    I agree to BeamMarkets{' '}
+                    <a 
+                      href="#" 
+                      className={`${
+                        isMobile ? 'text-amber-400 hover:underline' : 'text-blue-600 hover:underline'
+                      }`}
+                    >
+                      Terms of Service
+                    </a>{' '}
+                    and{' '}
+                    <a 
+                      href="#" 
+                      className={`${
+                        isMobile ? 'text-amber-400 hover:underline' : 'text-blue-600 hover:underline'
+                      }`}
+                    >
+                      Privacy Policy
+                    </a>
                   </span>
                 </label>
                 {formik.touched.agreeToTerms && formik.errors.agreeToTerms && (
@@ -167,7 +234,7 @@ const SignUp: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
             {/* Divider */}
             <div className="flex items-center my-6">
               <div className="flex-grow border-t border-gray-300"></div>
-              <span className="mx-4 text-gray-500 text-sm">OR SIGNIN WITH</span>
+              <span className="mx-4 md:text-gray-500 text-black md:text-sm text-xs">OR SIGNIN WITH</span>
               <div className="flex-grow border-t border-gray-300"></div>
             </div>
             

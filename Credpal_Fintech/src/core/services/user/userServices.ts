@@ -62,6 +62,7 @@ export const deleteUserById = async (id: string) => {
     throw error;
   }
 };
+
 export const createUser = async (userData: any) => {
   try {
     const response = await axios.post(`${API_BASE_URL}`, userData);
@@ -71,6 +72,7 @@ export const createUser = async (userData: any) => {
     throw error;
   }
 };
+
 export const getUserByEmail = async (email: string) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/email/${email}`);
@@ -79,4 +81,14 @@ export const getUserByEmail = async (email: string) => {
     console.error(`Error fetching user with email ${email}:`, error);
     throw error;
   }
-}
+};
+
+export const getLoggedInUserId = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/logged-in-user`);
+    return response.data.id;
+  } catch (error) {
+    console.error('Error fetching logged-in user ID:', error);
+    throw error;
+  }
+};

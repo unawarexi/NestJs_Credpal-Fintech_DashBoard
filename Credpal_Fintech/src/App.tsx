@@ -7,12 +7,13 @@ import './App.css';
 
 // check if the user is authenticated
 const isAuthenticated = () => {
-  return !!localStorage.getItem('token');
+  const token = localStorage.getItem('token');
+  return token && token !== 'undefined'; // Ensure token is valid
 };
 
 // PrivateRoute protect route
 const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return isAuthenticated() ? <>{children}</> : <Navigate to="/auth" />;
+  return isAuthenticated() ? <>{children}</> : <Navigate to="/auth" replace />;
 };
 
 function App() {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,8 +9,10 @@ import { authServices } from '../../core/services/auth/authServices';
 import { SubmitSpinner } from '../../core/spinners/Spinners';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useResponsive from '../../hooks/UseResponsive';
 
 const Login: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
+  const { isMobile, isTablet, isDesktop } = useResponsive();
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
@@ -26,11 +29,12 @@ const Login: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
     onSubmit: async (values) => {
       setIsSubmitting(true);
       try {
-        await authServices.login(values);
+        const response = await authServices.login(values);
+        localStorage.setItem('token', response.token); // Save token to localStorage
         toast.success('Login successful!');
-        navigate('/');
+        navigate('/'); // Redirect to home
       } catch (error) {
-        console.log(error)
+        console.log(error);
         toast.error('Login failed. Please check your credentials.');
       } finally {
         setIsSubmitting(false);
@@ -41,14 +45,20 @@ const Login: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
   return (
     <>
       {isSubmitting && <SubmitSpinner />}
-      <div className="flex flex-col md:flex-row lg:min-h-screen h-[100vh] bg-white">
+      <div 
+        className={`flex flex-col md:flex-row lg:min-h-screen h-[100vh] ${
+          isMobile ? 'bg-white/30 backdrop-blur-md rounded-lg shadow-lg p-6' : 'bg-white'
+        }`}
+      >
         {/* Left side */}
         {/* <LeftContainer /> */}
         
         {/* Right side - Login Form */}
         <motion.div 
-          className="w-full md:w-3/5 p-4 md:p-8 lg:p-16 flex flex-col justify-center"
-          initial={{ opacity: 0, x: 50 }}
+          className={`w-full md:w-3/5 py-10 md:py-0 md:p-8 lg:p-16 flex flex-col justify-center ${
+            isMobile ? '' : ''
+          }`}
+          initial={isMobile ? { opacity: 0, x: -50 } : { opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
@@ -58,21 +68,38 @@ const Login: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
             animate={{ y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2">Sign in to Beam.</h1>
-            <p className="mb-4 md:mb-6 lg:mb-8 text-xs md:text-sm lg:text-gray-600">
+            <h1 
+              className={`text-xl md:text-2xl lg:text-3xl font-bold mb-2 ${
+                isMobile ? 'text-amber-500' : 'text-gray-900'
+              }`}
+            >
+              Sign in to Beam.
+            </h1>
+            <p 
+              className={`mb-4 md:mb-6 lg:mb-8 text-xs md:text-sm ${
+                isMobile ? 'text-white' : 'text-gray-600'
+              }`}
+            >
               Please sign in with your assigned login details
             </p>
             
             <form onSubmit={formik.handleSubmit}>
               {/* Email field */}
               <div className="mb-4 md:mb-6">
-                <label htmlFor="email" className="block mb-1 md:mb-2 text-xs md:text-sm text-gray-700">Email Address</label>
+                <label 
+                  htmlFor="email" 
+                  className={`block mb-1 md:mb-2 text-xs md:text-sm ${
+                    isMobile ? 'text-white' : 'text-gray-700'
+                  }`}
+                >
+                  Email Address
+                </label>
                 <input
                   type="email"
                   id="email"
                   name="email"
                   className={`w-full px-2 py-2 md:px-4 md:py-3 border ${formik.touched.email && formik.errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                  placeholder="margnantissstockbroker@"
+                  placeholder={isMobile ? "Email" : "margnantissstockbroker@"}
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -84,13 +111,21 @@ const Login: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
               
               {/* Password field */}
               <div className="mb-2 md:mb-4">
-                <label htmlFor="password" className="block mb-1 md:mb-2 text-xs md:text-sm text-gray-700">Password</label>
+                <label 
+                  htmlFor="password" 
+                  className={`block mb-1 md:mb-2 text-xs md:text-sm ${
+                    isMobile ? 'text-white' : 'text-gray-700'
+                  }`}
+                >
+                  Password
+                </label>
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"
                     className={`w-full px-2 py-2 md:px-4 md:py-3 border ${formik.touched.password && formik.errors.password ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                    placeholder={isMobile ? "Password" : ""}
                     value={formik.values.password}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -110,7 +145,12 @@ const Login: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
               
               {/* Forgot password */}
               <div className="mb-6 text-right">
-                <Link to="/forgot-password" className="text-sm text-gray-600 hover:underline">
+                <Link 
+                  to="/forgot-password" 
+                  className={`text-sm ${
+                    isMobile ? 'text-white hover:text-amber-400' : 'text-gray-600 hover:underline'
+                  }`}
+                >
                   Forgot password?
                 </Link>
               </div>
@@ -128,8 +168,20 @@ const Login: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
             
             {/* Sign up link */}
             <div className="mt-8 text-center">
-              <p className="text-xs md:text-sm text-gray-600">
-                Don't have an account? <span onClick={toggleView} className="text-blue-600 hover:underline cursor-pointer">Create an account</span>
+              <p 
+                className={`text-xs md:text-sm ${
+                  isMobile ? 'text-white' : 'text-gray-600'
+                }`}
+              >
+                Don't have an account?{' '}
+                <span 
+                  onClick={toggleView} 
+                  className={`cursor-pointer ${
+                    isMobile ? 'text-amber-400 hover:underline' : 'text-blue-600 hover:underline'
+                  }`}
+                >
+                  Create an account
+                </span>
               </p>
             </div>
           </motion.div>
