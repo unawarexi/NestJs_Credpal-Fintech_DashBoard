@@ -53,13 +53,16 @@ PORT=5432
 ```
 
 Replace `<username>`, `<password>`, `<host>`, `<port>`, and `<database>` with your PostgreSQL credentials.
-**example of mine**
+```env
+example of mine
+
 DATABASE_URL="postgresql://postgres:2222@localhost:5432/interview?schema=public"
+```
 
 ```
 username =  postgres((default for postgres))
 password = my postgress password
-host =  localhost:4000
+host =  localhost
 port = 5432 (default for postgres)
 database = name of the database youre using (credpal)
 ```
