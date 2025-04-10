@@ -31,6 +31,8 @@ This project is built using the [NestJS](https://nestjs.com) framework. It uses 
 - **Prisma**: A next-generation ORM for Node.js and TypeScript.
 - **Docker**: A platform for developing, shipping, and running applications in containers.
 
+---
+
 ## Project Setup
 
 ### Prerequisites
@@ -45,12 +47,14 @@ Ensure you have the following installed on your system:
 Create a `.env` file in the root directory with the following variables:
 
 ```env
-DATABASE_URL=postgresql://<username>:<password>@<host>:<port>/<database>
-PORT=3000
+
+DATABASE_URL=postgresql://<username>:<password>@<host>:<port>/<database>?schema=public
+PORT=5432
 ```
 
 Replace `<username>`, `<password>`, `<host>`, `<port>`, and `<database>` with your PostgreSQL credentials.
-example of mine
+**example of mine**
+DATABASE_URL="postgresql://postgres:2222@localhost:5432/interview?schema=public"
 
 ```
 username =  postgres((default for postgres))
@@ -59,6 +63,7 @@ host =  localhost:4000
 port = 5432 (default for postgres)
 database = name of the database youre using (credpal)
 ```
+---
 
 ### Installation
 
@@ -73,6 +78,11 @@ $ npm install
 1. Build and start the Docker containers:
    ```bash
    $ docker-compose up --build
+   ```
+
+   **for local build**
+   ```bash
+   $ docker compose up postgres -d
    ```
 
 2. The application will be available at `http://localhost:4000`.
@@ -100,6 +110,7 @@ $ npm install
    ```bash
    $ npx prisma studio
    ```
+--- 
 
 ## Run Tests
 
