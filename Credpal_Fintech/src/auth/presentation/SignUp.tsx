@@ -47,7 +47,7 @@ const SignUp: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
   return (
     <>
       {isSubmitting && <SubmitSpinner />}
-      <div className="flex flex-col md:flex-row min-h-screen">
+      <div className="flex flex-col md:flex-row lg:min-h-screen h-[100vh] bg-white">
         {/* Left side */}
         {/* <LeftContainer /> */}
         
@@ -64,20 +64,20 @@ const SignUp: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
             animate={{ y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <h1 className="text-3xl font-bold mb-2">Create an account</h1>
-            <p className="mb-8 text-gray-600">
+            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2">Create an account</h1>
+            <p className="mb-4 md:mb-6 lg:mb-8 text-xs md:text-sm lg:text-gray-600">
               Already have an account? <span onClick={toggleView} className="text-blue-600 hover:underline cursor-pointer">Login</span>
             </p>
             
             <form onSubmit={formik.handleSubmit}>
               {/* Full name field */}
-              <div className="mb-4">
-                <label htmlFor="fullName" className="block mb-2 text-gray-700">Full name</label>
+              <div className="mb-4 md:mb-6">
+                <label htmlFor="fullName" className="block mb-1 md:mb-2 text-xs md:text-sm text-gray-700">Full name</label>
                 <input
                   type="text"
                   id="fullName"
                   name="fullName"
-                  className={`w-full px-4 py-3 border ${formik.touched.fullName && formik.errors.fullName ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                  className={`w-full px-2 py-2 md:px-4 md:py-3 border ${formik.touched.fullName && formik.errors.fullName ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
                   placeholder="Enter full name"
                   value={formik.values.fullName}
                   onChange={formik.handleChange}
@@ -89,13 +89,13 @@ const SignUp: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
               </div>
               
               {/* Email field */}
-              <div className="mb-4">
-                <label htmlFor="email" className="block mb-2 text-gray-700">Email Address</label>
+              <div className="mb-4 md:mb-6">
+                <label htmlFor="email" className="block mb-1 md:mb-2 text-xs md:text-sm text-gray-700">Email Address</label>
                 <input
                   type="email"
                   id="email"
                   name="email"
-                  className={`w-full px-4 py-3 border ${formik.touched.email && formik.errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                  className={`w-full px-2 py-2 md:px-4 md:py-3 border ${formik.touched.email && formik.errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
                   placeholder="margnantissstockbroker@"
                   value={formik.values.email}
                   onChange={formik.handleChange}
@@ -107,14 +107,14 @@ const SignUp: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
               </div>
               
               {/* Password field */}
-              <div className="mb-6">
-                <label htmlFor="password" className="block mb-2 text-gray-700">Password</label>
+              <div className="mb-4 md:mb-6">
+                <label htmlFor="password" className="block mb-1 md:mb-2 text-xs md:text-sm text-gray-700">Password</label>
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"
-                    className={`w-full px-4 py-3 border ${formik.touched.password && formik.errors.password ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                    className={`w-full px-2 py-2 md:px-4 md:py-3 border ${formik.touched.password && formik.errors.password ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
                     value={formik.values.password}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -122,7 +122,7 @@ const SignUp: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
                   />
                   <button 
                     type="button"
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                    className="absolute right-2 md:right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -144,7 +144,7 @@ const SignUp: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <span className="text-sm">
+                  <span className="text-xs md:text-sm">
                     I agree to BeamMarkets <a href="#" className="text-blue-600 hover:underline">Terms of Service</a> and <a href="#" className="text-blue-600 hover:underline">Privacy Policy</a>
                   </span>
                 </label>
@@ -156,7 +156,7 @@ const SignUp: React.FC<{ toggleView: () => void }> = ({ toggleView }) => {
               {/* Register button */}
               <motion.button
                 type="submit"
-                className="w-full bg-gray-800 text-white py-3 rounded-full hover:bg-gray-900 transition duration-200"
+                className="w-full bg-gray-800 text-white py-2 md:py-3 rounded-full hover:bg-gray-900 transition duration-200 text-xs md:text-sm"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

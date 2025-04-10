@@ -17,7 +17,7 @@ const RightContainer = () => {
   }, [isSignUp, navigate]);
 
   return (
-    <div className='pl-40'>
+    <div className='lg:pl-40'>
       {isSignUp ? (
         <SignUp toggleView={() => setIsSignUp(false)} />
       ) : (
