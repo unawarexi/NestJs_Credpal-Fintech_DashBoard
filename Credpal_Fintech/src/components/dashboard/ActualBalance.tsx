@@ -31,13 +31,13 @@ const ActualBalance = () => {
   return (
     <>
       <motion.div 
-        className="bg-gray-50 rounded-lg p-6 mb-6 h-full"
+        className=" rounded-lg mb-6 h-full"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        <div className='bg-zinc-100 p-4 rounded-lg'>
-          <div className="flex bg-zinc-0 justify-between items-center mb-6 border-b border-gray-400 py-4 ">
+        <div className='bg-zinc-200 p-4 rounded-lg'>
+          <div className="flex bg-zinc-0 justify-between items-center mb-4 border-b border-gray-400 py-4 ">
             <h3 className="text-gray-500 font-medium text-xs md:text-sm">Actual Balance</h3>
             <motion.div 
               className="bg-gray-200 p-2 rounded-lg"
@@ -48,7 +48,7 @@ const ActualBalance = () => {
           </div>
           
           <motion.div
-            className="text-3xl font-bold mb-6 border-b border-gray-300 py-4"
+            className="text-3xl font-bold mb-4 border-b border-gray-300 py-2"
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.5, type: "spring" }}
@@ -56,7 +56,7 @@ const ActualBalance = () => {
             ₦200,000<span className="text-lg font-normal text-gray-500">.00</span>
           </motion.div>
           
-          <div className="flex items-center mb-6 border-b border-gray-400 py-4">
+          <div className="flex items-center mb-4 border-dotted border-b-2 border-gray-500 py-4">
             <div className="text-gray-700 mr-2 text-xs md:text-sm">Wema Bank 010 210 2020</div>
             <motion.button
               whileHover={{ scale: 1.1 }}
@@ -68,7 +68,7 @@ const ActualBalance = () => {
           </div>
           
           <div className=" border-dashed border-gray-300  ">
-            <div className="flex justify-between items-center mb-10 border-b border-gray-300 py-4">
+            <div className="flex justify-between items-center mb-4 border-b border-gray-300 py-4">
               <h3 className="text-gray-500 font-medium text-xs md:text-sm">Pending Amount</h3>
               <motion.div 
                 className="bg-gray-200 p-2 rounded-lg"
@@ -83,18 +83,20 @@ const ActualBalance = () => {
             </div>
           </div>
         </div>
-        
+
+
+        {/* CTA BUTTONS */}
         <div className="grid grid-cols-2 gap-2 mt-6">
           <motion.button
-            className="bg-yellow-400 text-black py-3 rounded-lg font-medium"
+            className="bg-yellow-400 text-black py-3 rounded-lg font-medium text-xs md:text-sm"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            onClick={handleAddFundsClick} // Open modal on click
+            onClick={handleAddFundsClick} 
           >
             Add Funds
           </motion.button>
           <motion.button
-            className="bg-white border border-gray-300 text-gray-700 py-3 rounded-lg font-medium"
+            className="bg-white border border-gray-300 text-gray-700 py-3 rounded-lg font-medium text-xs md:text-sm"
             whileHover={{ scale: 1.03, backgroundColor: "#f9fafb" }}
             whileTap={{ scale: 0.97 }}
           >
@@ -104,21 +106,21 @@ const ActualBalance = () => {
         
         <div className="grid grid-cols-3 gap-2 mt-2">
           <motion.button
-            className="bg-white border border-gray-300 text-gray-700 py-3 rounded-lg font-medium"
+            className="bg-white border border-gray-300 text-gray-700 py-3 rounded-lg font-medium text-xs md:text-sm"
             whileHover={{ scale: 1.03, backgroundColor: "#f9fafb" }}
             whileTap={{ scale: 0.97 }}
           >
             PND Amount
           </motion.button>
           <motion.button
-            className="bg-white border border-gray-300 text-gray-700 py-3 rounded-lg font-medium"
+            className="bg-white border border-gray-300 text-gray-700 py-3 rounded-lg font-medium text-xs md:text-sm"
             whileHover={{ scale: 1.03, backgroundColor: "#f9fafb" }}
             whileTap={{ scale: 0.97 }}
           >
             Place Lien
           </motion.button>
           <motion.button
-            className="bg-white border border-gray-300 text-gray-700 py-3 rounded-lg font-medium"
+            className="bg-white border border-gray-300 text-gray-700 py-3 rounded-lg font-medium text-xs md:text-sm"
             whileHover={{ scale: 1.03, backgroundColor: "#f9fafb" }}
             whileTap={{ scale: 0.97 }}
           >

@@ -1,20 +1,56 @@
+import useResponsive from "../hooks/UseResponsive";
+
 const WalletFooter = () => {
+  const { isMobile, isTablet, isDesktop } = useResponsive();
   return (
-    <footer className="text-gray-600 body-font border-t-2 border-gray-200">
-      <div className="container px-3 py-2 mx-auto flex items-center flex-col sm:flex-row sm:px-5 sm:py-4">
-        <a className="flex title-font font-medium items-center justify-center text-gray-900">
-          <div className="p-4 flex items-center gap-1 sm:p-6 sm:gap-2">
-            <div className="bg-yellow-500 rounded-full h-6 w-6 flex items-center justify-center sm:h-8 sm:w-8">
-              <span className="font-bold text-xs sm:text-base">B</span>
+    <footer className="text-gray-600 body-font border-t border-gray-200">
+      <div
+        className={`container px-3 py-2 mx-auto flex ${
+          isMobile ? "justify-between" : "items-center flex-col md:flex-row"
+        }`}
+      >
+        {/* {logo and content} */}
+        <div className={`${isMobile ? "flex flex-col justify-between" : ""}`}>
+          <a className="flex title-font font-medium items-center justify-center text-gray-900">
+            <div className="p-2 flex items-center gap-1 sm:gap-2">
+              <div className="bg-yellow-500 rounded-full h-5 w-5 flex items-center justify-center sm:h-4 sm:w-4">
+                <span className="font-bold text-xs sm:text-sm">B</span>
+              </div>
+              <span className="font-bold text-xs sm:text-sm">BEAM</span>
             </div>
-            <span className="font-bold text-xs sm:text-base">BEAM</span>
-          </div>
-        </a>
-        <p className="text-xs text-gray-500 mt-2 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 sm:text-sm">
-          © 2025 credpal —
-          <a href="https://twitter.com/knyttneve" className="text-gray-600 ml-1" rel="noopener noreferrer" target="_blank">@andrew</a>
-        </p>
-        <span className="inline-flex mt-2 justify-center sm:ml-auto sm:mt-0 sm:justify-start">
+          </a>
+
+          {isMobile && (
+            <p className="text-[10px] text-gray-500 mt-1">
+              © 2025 credpal —
+              <a
+                href="https://x.com/LibraryOf_Dre"
+                className="text-gray-600 ml-1"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                @andrew
+              </a>
+            </p>
+          )}
+        </div>
+
+        {(isTablet || isDesktop) && (
+          <p className="text-xs text-gray-500 mt-1 sm:ml-4 sm:pl-4 sm:border-l sm:border-gray-200 sm:py-1 sm:mt-0 sm:text-sm">
+            © 2025 credpal —
+            <a
+              href="https://x.com/LibraryOf_Dre"
+              className="text-gray-600 ml-1"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              @andrew
+            </a>
+          </p>
+        )}
+
+        {/* {social icons} */}
+        <span className="inline-flex mt-1 justify-center sm:ml-auto sm:mt-0 sm:justify-start">
           <a className="text-gray-500">
             <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24">
               <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
@@ -40,7 +76,7 @@ const WalletFooter = () => {
         </span>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default WalletFooter
+export default WalletFooter;

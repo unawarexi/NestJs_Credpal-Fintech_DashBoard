@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -11,11 +12,14 @@ import {
   Bell, 
   Settings, 
   LogOut, 
-  HelpCircle 
+  HelpCircle,
+  X
 } from 'lucide-react';
-import Transactions from '../layout/Transactions'; // Import the new Transactions screen
+import Transactions from '../layout/Transactions';
+import useResponsive from '../hooks/UseResponsive';
 
-const WalletLeftContainer = () => {
+const WalletLeftContainer = ({ onClose }) => {
+  const { isMobile, isTablet, isDesktop } = useResponsive();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -39,25 +43,37 @@ const WalletLeftContainer = () => {
 
   const handleNavigation = (route: string) => {
     navigate(route);
+    if (isMobile || isTablet) {
+      onClose();
+    }
   };
 
   return (
     <motion.div 
-      className="md:w-2/5 w-full bg-[#0C110D] text-white h-screen max-w-xs flex flex-col justify-between"
-      initial={{ x: -50, opacity: 0 }}
+      className={`fixed lg:relative w-64 bg-[#0C110D] text-white h-screen flex flex-col z-50`}
+      initial={{ x: isMobile || isTablet ? -280 : 0, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      exit={{ x: isMobile || isTablet ? -280 : 0, opacity: 0 }}
+      transition={{ duration: 0.3 }}
     >
-      <div>
-        <div className="p-6 flex items-center gap-2">
+      <div className="p-6 flex items-center justify-between">
+        <div className="flex items-center gap-2">
           <div className="bg-yellow-500 rounded-full h-8 w-8 flex items-center justify-center">
-            <span className="font-bold text-xs md:text-base">B</span> {/* Adjust text size */}
+            <span className="font-bold text-xs md:text-base">B</span> 
           </div>
-          <span className="font-bold text-xs md:text-base">BEAM</span> {/* Adjust text size */}
+          <span className="font-bold text-xs md:text-base">BEAM</span>
         </div>
+        
+        {(isMobile || isTablet) && (
+          <button onClick={onClose} className="text-gray-400 hover:text-white">
+            <X size={24} />
+          </button>
+        )}
+      </div>
 
-        <div className="mt-8">
-          <div className="px-6 py-2 text-gray-400 text-xs md:text-sm">MAIN</div> {/* Adjust text size */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="mt-4">
+          <div className="px-6 py-2 text-gray-400 text-xs md:text-sm">MAIN</div> 
           <div className="space-y-1">
             {mainMenuItems.map((item, index) => (
               <motion.div 
@@ -68,14 +84,14 @@ const WalletLeftContainer = () => {
                 onClick={() => handleNavigation(item.route)}
               >
                 <span className={`${location.pathname === item.route ? 'text-yellow-500' : 'text-gray-400'}`}>{item.icon}</span>
-                <span className={`${location.pathname === item.route ? 'text-yellow-500' : 'text-gray-400'} text-xs md:text-sm`}>{item.text}</span> {/* Adjust text size */}
+                <span className={`${location.pathname === item.route ? 'text-yellow-500' : 'text-gray-400'} text-xs md:text-sm`}>{item.text}</span>
               </motion.div>
             ))}
           </div>
         </div>
 
         <div className="mt-8">
-          <div className="px-6 py-2 text-gray-400 text-xs md:text-sm">OTHERS</div> {/* Adjust text size */}
+          <div className="px-6 py-2 text-gray-400 text-xs md:text-sm">OTHERS</div> 
           <div className="space-y-1">
             {otherMenuItems.map((item, index) => (
               <motion.div 
@@ -86,7 +102,7 @@ const WalletLeftContainer = () => {
                 onClick={() => handleNavigation(item.route)}
               >
                 <span className="text-gray-400">{item.icon}</span>
-                <span className="text-gray-400">{item.text}</span>
+                <span className="text-gray-400 text-xs md:text-sm">{item.text}</span>
               </motion.div>
             ))}
           </div>
@@ -95,7 +111,7 @@ const WalletLeftContainer = () => {
       
       <div className="p-6">
         <div className="bg-gray-50 p-3 rounded-lg flex items-center justify-between">
-          <span className="text-sm md:text-base text-black">Switch to dark mode</span> {/* Adjust text size */}
+          <span className="text-sm text-black">Dark mode</span>
           <div 
             className={`w-12 h-6 rounded-full p-1 cursor-pointer ${darkMode ? 'bg-yellow-500' : 'bg-gray-600'}`}
             onClick={() => setDarkMode(!darkMode)}
@@ -108,7 +124,7 @@ const WalletLeftContainer = () => {
           </div>
         </div>
       </div>
-      {location.pathname === '/transactions' && <Transactions />} {/* Render Transactions screen */}
+      {location.pathname === '/transactions' && <Transactions />}
     </motion.div>
   );
 };

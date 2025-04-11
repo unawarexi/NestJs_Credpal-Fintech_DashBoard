@@ -36,7 +36,7 @@ const TransactionHistory = () => {
   const getStatusColor = (status: string) => {
     switch(status) {
       case 'Approved':
-        return 'bg-green-100 text-green-800';
+        return 'bg-green-100 text-green-800 ';
       case 'Liquidated':
         return 'bg-yellow-100 text-yellow-800';
       case 'Awaiting Approval':
@@ -70,23 +70,24 @@ const TransactionHistory = () => {
 
   return (
     <motion.div 
-      className=" rounded-lg"
+      className="rounded-lg"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
       <div className="p-6 border-b border-gray-200">
-        <h2 className="text-lg md:text-xl font-bold mb-6">Transaction History</h2>
+        <h2 className="text-xs md:text-sm font-bold mb-6 lg:mb-4">Transaction History</h2>
         
-        <div className="flex justify-between items-center">
-          <div className="flex space-x-2">
+        <div className="flex justify-between items-center space-x-4 overflow-x-auto">
+          {/* Time Filters */}
+          <div className="flex space-x-2 pr-4">
             {timeFilters.map((filter) => (
               <motion.button
                 key={filter}
-                className={`px-4 py-2 rounded-lg text-sm ${
+                className={`px-3 py-1 rounded-lg border text-xs  ${
                   activeFilter === filter 
-                    ? 'bg-gray-200 text-gray-800 font-medium' 
-                    : 'bg-gray-100 text-gray-500'
+                    ? 'border-[#0C110D] bg-gray-200 text-gray-800 font-medium' 
+                    : 'border-gray-300 bg-gray-100 text-gray-500'
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -97,14 +98,15 @@ const TransactionHistory = () => {
             ))}
           </div>
           
-          <div className="flex space-x-2">
+          {/* Status Filters */}
+          <div className="flex space-x-2 flex-1 justify-center">
             {statusFilters.map((filter) => (
               <motion.button
                 key={filter}
-                className={`px-4 py-2 rounded-lg text-sm ${
+                className={`px-3 py-1 rounded-lg border text-xs ${
                   statusFilter === filter 
-                    ? 'bg-gray-800 text-white font-medium' 
-                    : 'bg-gray-100 text-gray-500'
+                    ? 'border-[#0C110D] bg-[#0C110D] text-white font-medium' 
+                    : 'border-gray-300 bg-gray-100 text-gray-500'
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -113,98 +115,129 @@ const TransactionHistory = () => {
                 {filter}
               </motion.button>
             ))}
+          </div>
+          
+          {/* Filter Dropdown */}
+          <div className="relative flex-1 flex justify-end">
+            <motion.button
+              className="px-3 py-1 rounded-lg border border-gray-300 bg-gray-100 text-gray-500 flex items-center text-xs"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setShowFilterDropdown((prev) => !prev)}
+            >
+              Filter by
+              <ChevronDown size={14} className="ml-1" />
+            </motion.button>
             
-            <div className="relative">
-              <motion.button
-                className="px-4 py-2 rounded-lg text-sm bg-gray-100 text-gray-500 flex items-center"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setShowFilterDropdown(!showFilterDropdown)}
-              >
-                Filter by
-                <ChevronDown size={16} className="ml-1" />
-              </motion.button>
-              
-              <AnimatePresence>
-                {showFilterDropdown && (
-                  <motion.div 
-                    className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <div className="py-1">
-                      <div className="px-4 py-2 text-sm text-gray-700 font-medium border-b border-gray-100">Sort by</div>
-                      <button className="px-4 py-2 rounded-lg text-[10px] md:text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Date (Newest first)</button>
-                      <button className="px-4 py-2 rounded-lg text-[10px] md:text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Date (Oldest first)</button>
-                      <button className="px-4 py-2 rounded-lg text-[10px] md:text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Amount (High to low)</button>
-                      <button className="px-4 py-2 rounded-lg text-[10px] md:text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Amount (Low to high)</button>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+            <AnimatePresence>
+              {showFilterDropdown && (
+                <motion.div 
+                  className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50 overflow-visible"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="py-1">
+                    <div className="px-4 py-2 text-xs text-gray-700 font-medium border-b border-gray-100">Sort by</div>
+                    <button 
+                      className="px-4 py-2 rounded-lg text-xs text-gray-700 hover:bg-gray-100 w-full text-left"
+                      onClick={() => setShowFilterDropdown(false)}
+                    >
+                      Date (Newest first)
+                    </button>
+                    <button 
+                      className="px-4 py-2 rounded-lg text-xs text-gray-700 hover:bg-gray-100 w-full text-left"
+                      onClick={() => setShowFilterDropdown(false)}
+                    >
+                      Date (Oldest first)
+                    </button>
+                    <button 
+                      className="px-4 py-2 rounded-lg text-xs text-gray-700 hover:bg-gray-100 w-full text-left"
+                      onClick={() => setShowFilterDropdown(false)}
+                    >
+                      Amount (High to low)
+                    </button>
+                    <button 
+                      className="px-4 py-2 rounded-lg text-xs text-gray-700 hover:bg-gray-100 w-full text-left"
+                      onClick={() => setShowFilterDropdown(false)}
+                    >
+                      Amount (Low to high)
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
       
-      <div className="overflow-x-auto">
-        <table className="min-w-full">
-          <thead>
-            <tr className="text-left text-sm text-gray-500 border-b border-gray-400">
-              <th className="px-6 py-3 font-medium">Transaction ID</th>
-              <th className="px-6 py-3 font-medium">Transaction Type</th>
-              <th className="px-6 py-3 font-medium">Amount (₦)</th>
-              <th className="px-6 py-3 font-medium">Status</th>
-              <th className="px-6 py-3 font-medium">Date</th>
-              <th className="px-6 py-3 font-medium">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {transactions.map((transaction, index) => (
-              <motion.tr 
-                key={index}
-                className="border-b border-gray-300 hover:bg-gray-50"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05, duration: 0.3 }}
-              >
-                <td className="px-6 py-4 text-[10px] md:text-sm text-gray-700">{transaction.id}</td>
-                <td className="px-6 py-4 text-[10px] md:text-sm text-gray-700">{transaction.type}</td>
-                <td className="px-6 py-4 text-[10px] md:text-sm text-gray-700">{transaction.amount}</td>
-                <td className="px-6 py-4 text-sm">
-                  <div className="flex items-center">
-                    <div className={`w-2 h-2 rounded-full mr-2 ${getStatusDot(transaction.status)}`}></div>
-                    <span className={`px-2 py-1 rounded-full text-[10px] md:text-xs ${getStatusColor(transaction.status)}`}>
-                      {transaction.status}
-                    </span>
-                  </div>
-                </td>
-                <td className="px-6 py-4 text-[10px] md:text-sm text-gray-700">{transaction.date}</td>
-                <td className="px-6 py-4 text-sm">
-                  <motion.button
-                    className="text-blue-600 hover:text-blue-800"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    View
-                  </motion.button>
-                </td>
-              </motion.tr>
-            ))}
-          </tbody>
-        </table>
+      {/* Table container with separate scrollable header and body */}
+      <div className="relative">
+        {/* Header with independent scroll */}
+        <div className="overflow-x-auto border-b border-gray-400 bg-white sticky top-0 z-10">
+          <table className="min-w-full table-auto">
+            <thead>
+              <tr className="text-left font-bold text-xs text-gray-500">
+                <th className="px-4 py-3 whitespace-nowrap">Transaction ID</th>
+                <th className="px-4 py-3 whitespace-nowrap">Transaction Type</th>
+                <th className="px-4 py-3 whitespace-nowrap">Amount (₦)</th>
+                <th className="px-4 py-3 whitespace-nowrap">Status</th>
+                <th className="px-4 py-3 whitespace-nowrap">Date</th>
+                <th className="px-4 py-3 whitespace-nowrap">Action</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+
+        {/* Body with independent scroll */}
+        <div className="overflow-x-auto">
+          <table className="min-w-full table-auto">
+            <tbody>
+              {transactions.map((transaction, index) => (
+                <motion.tr 
+                  key={index}
+                  className="border-b border-gray-300 hover:bg-gray-50"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.05, duration: 0.3 }}
+                >
+                  <td className="px-4 py-2 text-xs text-gray-700 whitespace-nowrap">{transaction.id}</td>
+                  <td className="px-4 py-2 text-xs text-gray-700 whitespace-nowrap">{transaction.type}</td>
+                  <td className="px-4 py-2 text-xs text-gray-700 whitespace-nowrap">{transaction.amount}</td>
+                  <td className="px-4 py-2 text-xs whitespace-nowrap">
+                    <div className="flex items-center">
+                      <div className={`w-2 h-2 rounded-full mr-2 ${getStatusDot(transaction.status)}`}></div>
+                      <span className={`px-2 py-1 rounded-full text-xs ${getStatusColor(transaction.status)}`}>
+                        {transaction.status}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-4 py-2 text-xs text-gray-700 whitespace-nowrap">{transaction.date}</td>
+                  <td className="px-4 py-2 text-xs whitespace-nowrap">
+                    <motion.button
+                      className="hover:text-blue-800 border border-gray-500 rounded-lg px-3 py-1 text-xs"
+                      whileHover={{ scale: 1.05, backgroundColor: "#f9fafb" }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      View
+                    </motion.button>
+                  </td>
+                </motion.tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       
-      <div className="flex justify-between items-center px-6 py-4">
+      <div className="flex justify-between items-center px-6 py-4 lg:py-2">
         <div className="text-[10px] md:text-sm text-gray-700">
           Page {currentPage} of {totalPages}
         </div>
         
         <div className="flex items-center space-x-1">
           <motion.button
-            className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-200"
+            className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-200 lg:py-1"
             whileHover={{ scale: 1.1, backgroundColor: "#f9fafb" }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
@@ -213,34 +246,24 @@ const TransactionHistory = () => {
             <ChevronLeft size={16} className={currentPage === 1 ? "text-gray-300" : "text-gray-600"} />
           </motion.button>
           
-          {[1, 2, 3, 4, 5, 6].map((page) => {
-            if (page === 1 || 
-                page === totalPages || 
-                (page >= currentPage - 1 && page <= currentPage + 1)) {
-              return (
-                <motion.button
-                  key={page}
-                  className={`w-8 h-8 flex items-center justify-center rounded-md ${
-                    currentPage === page 
-                      ? 'bg-yellow-500 text-white' 
-                      : 'border border-gray-200 text-gray-700 hover:bg-gray-50'
-                  }`}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={() => setCurrentPage(page)}
-                >
-                  {page}
-                </motion.button>
-              );
-            }
-            if (page === currentPage - 2 || page === currentPage + 2) {
-              return <span key={page} className="text-gray-500">...</span>;
-            }
-            return null;
-          })}
+          {[1, 2, 3, 4, 5, 6].map((page) => (
+            <motion.button
+              key={page}
+              className={`w-8 h-8 flex text-xs items-center justify-center rounded-md ${
+                currentPage === page 
+                  ? 'bg-yellow-500 text-white' 
+                  : 'border border-gray-200 text-gray-700 hover:bg-gray-50'
+              }`}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setCurrentPage(page)}
+            >
+              {page}
+            </motion.button>
+          ))}
           
           <motion.button
-            className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-200"
+            className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-200 lg:py-1"
             whileHover={{ scale: 1.1, backgroundColor: "#f9fafb" }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
